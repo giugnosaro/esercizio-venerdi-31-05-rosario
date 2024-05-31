@@ -1,8 +1,10 @@
-import { Todos } from '../../models/todos';
-import { Utenti } from '../../models/utenti';
-import { TodosService } from '../../todos.service';
-import { UtentiService } from './../../utenti.service';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit } from "@angular/core";
+import { Utenti } from "../../models/utenti";
+import { Todos } from "../../models/todos";
+import { UtentiService } from "../../utenti.service";
+import { TodosService } from "../../todos.service";
+
 
 @Component({
   selector: 'app-home',
@@ -10,30 +12,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  utenti: Utenti[] = [];
-  todos: any[] = [];
+  utentiArr: Utenti[] = [];
+  todosArr: Todos[] = [];
+
 
   constructor(private utentiService: UtentiService, private todosService: TodosService ) {}
 
   ngOnInit(): void {
-
-    this.utentiService.getAllUtenti().subscribe((utenti: Utenti[]) => {
-      console.log('Utenti:', utenti);
-      this.utenti = utenti;
-    });
-
-    this.todosService.getAllTodos().subscribe(todos => {
-      this.todos = todos;
-    });
-  }
-  getTodosByUserId(userId: number): Todos[] {
-    return this.todos.filter(todo => todo.userId === userId);
+    this.utentiArr = this.utentiService.utentiArr;
+    this.todosArr = this.todosService.todosArr;
   }
 
-  isCompleted(userId: number): boolean {
-    const todosByUser = this.getTodosByUserId(userId);
-    return todosByUser.every(todo => todo.completed);
+  getUserName(userId: number): Utenti | undefined {
+    return this.utentiArr.find(utenti => utenti.id === userId)
   }
 
+  isCompleted(): boolean {
+    return this.todosArr.some(task => task.completed);
+  }
 
 }

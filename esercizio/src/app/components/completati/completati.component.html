@@ -1,1 +1,33 @@
-<p>completati works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">
+            <h5>Todos Completati</h5>
+          </div>
+          <div class="card-text">
+            <div class="utente-todo" *ngFor="let utente of utenti">
+              <div class="utente">
+                <img [src]="utente.image" alt="Immagine utente" />
+                <div class="info">
+                  <h2>{{ utente.firstName }} {{ utente.lastName }}</h2>
+                  <p>{{ utente.email }}</p>
+                  <p>{{ utente.title }}</p>
+                </div>
+              </div>
+              <div class="todo">
+                <h6>{{ utente.firstName }}'s Todos</h6>
+                <div *ngFor="let todo of getTodosByUserId(utente.id)">
+                  <ng-container *ngIf="todo.completed">
+                    <p>{{ todo.todo }}</p>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

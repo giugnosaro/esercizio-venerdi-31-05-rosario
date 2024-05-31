@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class UtentiService {
 
-  utenti:Utenti[]= [
+  utentiArr:Utenti[]= [
     {
       "id": 1,
       "firstName": "Terry",
@@ -815,7 +815,7 @@ export class UtentiService {
   constructor() { }
 
   getAllUtenti(): Observable<Utenti[]> {
-    return of(this.utenti);
+    return of(this.utentiArr);
   }
 
   getUtenteById(id: number): Observable<Utenti | undefined> {

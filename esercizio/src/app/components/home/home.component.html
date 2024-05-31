@@ -1,31 +1,16 @@
-<div id="cardRe">
-  <div class="card bg-info">
-    <div class="card-body">
-      <div *ngFor="let utente of utenti" class="utente-todo">
-        <div class="utente">
-          <img [src]="utente.image" alt="Immagine utente" />
-          <div class="info">
-            <h2>{{ utente.firstName }} {{ utente.lastName }}</h2>
-            <p>{{ utente.email }}</p>
-            <p>{{ utente.title }}</p>
-          </div>
-        </div>
-        <div
-          class="todo"
-          [ngClass]="{
-            'bg-success': isCompleted(utente.id),
-            'bg-danger': !isCompleted(utente.id)
-          }"
-        >
-          <h6>{{ utente.firstName }}'s Todos</h6>
-          <div *ngFor="let todo of getTodosByUserId(utente.id)">
-            <p>{{ todo.todo }}</p>
-            <p *ngIf="todo.completed">Completed</p>
-            <p *ngIf="!todo.completed">Not completed</p>
-          </div>
-          <p *ngIf="isCompleted(utente.id)">
-            <strong>Tutti i Todos completati!</strong>
-          </p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div class="card bg-warning-subtle">
+        <div class="card-body" *ngFor="let task of todosArr">
+          <input
+            class="ms-2 form-check-input"
+            type="checkbox"
+            [(ngModel)]="task.completed"
+          />
+          <p>{{ task.id }}</p>
+          <p>{{ task.userId }}</p>
+          <h5>{{ task.todo }}</h5>
         </div>
       </div>
     </div>

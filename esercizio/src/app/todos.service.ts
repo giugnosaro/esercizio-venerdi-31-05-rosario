@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 export class TodosService {
 
 
-   todos:Todos[] = [
+   todosArr:Todos[] = [
     {
       "id":1,
       "todo":"Do something nice for someone I care about",
@@ -915,7 +915,7 @@ export class TodosService {
   constructor() { }
 
   getAllTodos(): Observable<Todos[]> {
-    return of(this.todos);
+    return of(this.todosArr);
   }
 
   getTodoById(id: number): Observable<Todos | undefined> {
@@ -929,11 +929,11 @@ export class TodosService {
   }
 
   getTodos(): Observable<Todos[]> {
-    return of(this.todos);
+    return of(this.todosArr);
   }
 
   getTodoByUserId(userId: number): Observable<Todos[]> {
-    const todosByUser = this.todos.filter(todo => todo.userId === userId);
+    const todosByUser = this.todosArr.filter(todo => todo.userId === userId);
     return of(todosByUser);
   }
 
