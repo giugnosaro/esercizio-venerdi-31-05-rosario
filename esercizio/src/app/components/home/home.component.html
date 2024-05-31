@@ -1,0 +1,8 @@
+<div *ngIf="utenti.length">
+  <ul>
+    <li *ngFor="let utente of utenti">{{ utente.id }}: {{ utente.email }}</li>
+  </ul>
+</div>
+<div *ngIf="!utenti.length">
+  <p>Nessun utente disponibile.</p>
+</div>

@@ -1,6 +1,7 @@
 export type Root = Utenti[]
 
 export interface Utenti {
+  id: number
   firstName: string
   lastName: string
   email: string

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Todos } from './models/todos';
+import { Observable } from 'rxjs';
+import { ApplicazioneService } from './applicazione.service';
 
 @Injectable({
   providedIn: 'root'
@@ -909,5 +911,31 @@ export class TodosService {
     }
   ]
 
-  constructor() { }
+  constructor(private applicazioneService: ApplicazioneService) { }
+
+  getAllTodos(): Observable<Todos[]> {
+
+    return this.applicazioneService.getTodos();
+  }
+
+  getTodoById(id: number): Observable<Todos | undefined> {
+
+    return this.applicazioneService.getTodoById(id);
+  }
+
+  addTodo(todo: Todos): Observable<any> {
+
+    return this.applicazioneService.addTodo(todo);
+  }
+
+  updateTodo(updateTodo: Todos): Observable<any> {
+
+    return this.applicazioneService.updateTodo(updateTodo);
+  }
+
+  deleteTodo(id:number): Observable<any> {
+
+    return this.applicazioneService.deleteTodo(id);
+  }
+
 }
