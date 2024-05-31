@@ -1,43 +1,61 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UtentiService } from './utenti.service';
+import { TodosService } from './todos.service';
 import { Todos } from './models/todos';
 import { Utenti } from './models/utenti';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicazioneService {
-  getUtenti(): import("rxjs").Observable<import("./models/utenti").Utenti[]> {
-    throw new Error('Method not implemented.');
-  }
-  getUtenteById(id: number): import("rxjs").Observable<import("./models/utenti").Utenti | undefined> {
-    throw new Error('Method not implemented.');
-  }
-  addUtente(utente: Utenti): import("rxjs").Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  updateUtente(updateUtente: Utenti): import("rxjs").Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  deleteUtente(id: number): import("rxjs").Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  getTodos(): import("rxjs").Observable<import("./models/todos").Todos[]> {
-    throw new Error('Method not implemented.');
-  }
-  getTodoById(id: number): import("rxjs").Observable<import("./models/todos").Todos | undefined> {
-    throw new Error('Method not implemented.');
-  }
-  addTodo(todo: Todos): import("rxjs").Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  updateTodo(updateTodo: Todos): import("rxjs").Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  deleteTodo(id: number): import("rxjs").Observable<any> {
-    throw new Error('Method not implemented.');
+
+  constructor(
+    private utentiService: UtentiService,
+    private todoService: TodosService
+  ) { }
+
+  // Metodi relativi agli utenti
+
+  getUtenti(): Observable<Utenti[]> {
+    return this.utentiService.getAllUtenti();
   }
 
-  constructor() { }
+  getUtenteById(id: number): Observable<Utenti | undefined> {
+    return this.utentiService.getUtenteById(id);
+  }
+
+  addUtente(utente: Utenti): Observable<any> {
+    return this.utentiService.addUtente(utente);
+  }
+
+  updateUtente(updateUtente: Utenti): Observable<any> {
+    return this.utentiService.updateUtente(updateUtente);
+  }
+
+  deleteUtente(id: number): Observable<any> {
+    return this.utentiService.deleteUtente(id);
+  }
+
+  // Metodi relativi ai Todos
+
+  getTodos(): Observable<Todos[]> {
+    return this.todoService.getTodos();
+  }
+
+  getTodoById(id: number): Observable<Todos | undefined> {
+    return this.todoService.getTodoById(id);
+  }
+
+  addTodo(todo: Todos): Observable<any> {
+    return this.todoService.addTodo(todo);
+  }
+
+  updateTodo(updateTodo: Todos): Observable<any> {
+    return this.todoService.updateTodo(updateTodo);
+  }
+
+  deleteTodo(id: number): Observable<any> {
+    return this.todoService.deleteTodo(id);
+  }
 }

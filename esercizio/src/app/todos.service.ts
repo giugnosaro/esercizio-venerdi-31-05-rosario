@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Todos } from './models/todos';
-import { Observable } from 'rxjs';
-import { ApplicazioneService } from './applicazione.service';
+import { Observable, of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodosService {
+
 
    todos:Todos[] = [
     {
@@ -911,31 +912,39 @@ export class TodosService {
     }
   ]
 
-  constructor(private applicazioneService: ApplicazioneService) { }
+  constructor() { }
 
   getAllTodos(): Observable<Todos[]> {
-
-    return this.applicazioneService.getTodos();
+    return of(this.todos);
   }
 
   getTodoById(id: number): Observable<Todos | undefined> {
 
-    return this.applicazioneService.getTodoById(id);
+    return this.getTodoById(id);
   }
 
   addTodo(todo: Todos): Observable<any> {
 
-    return this.applicazioneService.addTodo(todo);
+    return this.addTodo(todo);
+  }
+
+  getTodos(): Observable<Todos[]> {
+    return of(this.todos);
+  }
+
+  getTodoByUserId(userId: number): Observable<Todos[]> {
+    const todosByUser = this.todos.filter(todo => todo.userId === userId);
+    return of(todosByUser);
   }
 
   updateTodo(updateTodo: Todos): Observable<any> {
 
-    return this.applicazioneService.updateTodo(updateTodo);
+    return this.updateTodo(updateTodo);
   }
 
   deleteTodo(id:number): Observable<any> {
 
-    return this.applicazioneService.deleteTodo(id);
+    return this.deleteTodo(id);
   }
 
 }

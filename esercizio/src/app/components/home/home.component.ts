@@ -1,21 +1,39 @@
+import { Todos } from '../../models/todos';
 import { Utenti } from '../../models/utenti';
+import { TodosService } from '../../todos.service';
 import { UtentiService } from './../../utenti.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  utenti:Utenti[] = [];
+  utenti: Utenti[] = [];
+  todos: any[] = [];
 
-  constructor(private utentiService: UtentiService ) {}
+  constructor(private utentiService: UtentiService, private todosService: TodosService ) {}
 
   ngOnInit(): void {
-    this.getUtenti();
+
+    this.utentiService.getAllUtenti().subscribe((utenti: Utenti[]) => {
+      console.log('Utenti:', utenti);
+      this.utenti = utenti;
+    });
+
+    this.todosService.getAllTodos().subscribe(todos => {
+      this.todos = todos;
+    });
   }
-  getUtenti(): void {
-    this.utentiService.getAllUtenti().subscribe(utenti => this.utenti = utenti);
+  getTodosByUserId(userId: number): Todos[] {
+    return this.todos.filter(todo => todo.userId === userId);
   }
+
+  isCompleted(userId: number): boolean {
+    const todosByUser = this.getTodosByUserId(userId);
+    return todosByUser.every(todo => todo.completed);
+  }
+
+
 }
