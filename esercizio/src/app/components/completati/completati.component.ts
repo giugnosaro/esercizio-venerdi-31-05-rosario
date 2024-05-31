@@ -1,3 +1,4 @@
+
 import { Todos } from '../../models/todos';
 import { Utenti } from '../../models/utenti';
 import { TodosService } from '../../todos.service';
@@ -10,29 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './completati.component.scss'
 })
 export class CompletatiComponent implements OnInit{
-  utenti: Utenti[] = [];
-  todos: any[] = [];
+  utentiArr: Utenti[] = [];
+  todosArr: Todos[] = [];
 
   constructor(private utentiService: UtentiService, private todosService: TodosService ) {}
 
-  ngOnInit(): void {
-    this.utentiService.getAllUtenti().subscribe((utenti: Utenti[]) => {
-      console.log('Utenti:', utenti);
-      this.utenti = utenti;
-    });
+ ngOnInit(){
+   this.todosArr= this.todosService.todosArr.filter (todo => todo.completed);
+   this.utentiArr= this.utentiService.utentiArr;
+ }
 
-    this.todosService.getAllTodos().subscribe(todos => {
-      this.todos = todos;
-    });
-  }
-
-  getTodosByUserId(userId: number): Todos[] {
-    return this.todos.filter(todo => todo.userId === userId);
-  }
-
-  isCompleted(userId: number): boolean {
-    const todosByUser = this.getTodosByUserId(userId);
-    return todosByUser.every(todo => todo.completed);
-  }
+ getUserName(userId: number): Utenti | undefined {
+  return this.utentiArr.find(utenti => utenti.id === userId)
+}
 
 }

@@ -27,8 +27,4 @@ export class HomeComponent implements OnInit {
     return this.utentiArr.find(utenti => utenti.id === userId)
   }
 
-  isCompleted(): boolean {
-    return this.todosArr.some(task => task.completed);
-  }
-
 }
